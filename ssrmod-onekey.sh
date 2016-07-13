@@ -1,5 +1,31 @@
 #!/bin/sh
+echo '#############################################
+############欢迎使用SSR便捷安装包############
+#########此脚本只在Centos下通过测试##########
+###############感谢glzjin！##################'
+echo '确认安装请按<Y>:'
+read con
+if [ "$con" == "Y" ] ; then
+cd /root
+yum install -y wget
+yum install -y python-setuptools && easy_install pip
+yum install -y git
 
+echo ' ########开始安装libsodium#########'
+yum -y groupinstall "Development Tools"
+wget https://github.com/jedisct1/libsodium/releases/download/1.0.10/libsodium-1.0.10.tar.gz
+tar xf libsodium-1.0.10.tar.gz && cd libsodium-1.0.10
+./configure && make -j2 && make install
+echo /usr/local/lib > /etc/ld.so.conf.d/usr_local_lib.conf
+ldconfig
+echo ' ##########开始安装cymysql###########'
+pip install cymysql
+
+echo ' ##########开始安装魔改后端###########'
+cd /root
+git clone -b manyuser https://github.com/glzjin/shadowsocks.git
+cd shadowsocks
+fi
 echo '#############################################
 #############开始进行参数配置################
 ##############这里做基本配置#################
