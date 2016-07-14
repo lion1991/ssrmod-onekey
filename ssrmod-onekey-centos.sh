@@ -75,8 +75,21 @@ sed -i '$a startsecs=3' /etc/supervisord.conf
 /usr/bin/supervisord -c /etc/supervisord.conf
 supervisorctl reload 
 sed -i '$a\supervisord' /etc/rc.local
+fi
 
-
+echo '如果你是Centos7，请按<Y>继续设置开机启动:'
+read c7
+if [ "$c7" == "Y" ] ; then
+cd /root
+echo "#!/bin/sh" >supervisord.sh
+sed -i '$a #chkconfig: 2345 80 80' supervisord.sh
+sed -i '$a #description: auto start supervisord' supervisord.sh
+sed -i '$a supervisord' supervisord.sh
+chmod +x supervisord.sh
+mv supervisord.sh /etc/init.d/ 
+chkconfig --add supervisord.sh
+chkconfig --list supervisord.sh
+fi
 echo "配置完成，Enjoy it！"
 echo "查看SS日志命令为supervisorctl tail -f shadowsocks stderr"
 echo "重启SS守护命令为supervisorctl restart shadowsocks"
@@ -84,5 +97,3 @@ echo "停止SS守护命令为supervisorctl stop shadowsocks"
 echo "如果SS正常启动后，无法“上网”请检查iptables配置"
 echo "制作人：Matt QQ：6637456"
 echo "魔改交流群：567667802"
-
-fi
