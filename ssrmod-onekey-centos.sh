@@ -74,10 +74,10 @@ sed -i '$a stdout_logfile = /var/log/shadowsocks.log' /etc/supervisord.conf
 sed -i '$a startsecs=3' /etc/supervisord.conf
 /usr/bin/supervisord -c /etc/supervisord.conf
 supervisorctl reload 
-sed -i '$a\supervisord' /etc/rc.local
+sed -i '$a\supervisord' /etc/rc.d/rc.local
 fi
 
-echo '如果你是Centos7，请按<Y>继续设置开机启动:'
+echo '如果你是Centos7，请按<Y>继续设置开机启动,否则按其他键退出:'
 read c7
 if [ "$c7" == "Y" ] ; then
 cd /root
