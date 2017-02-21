@@ -20,11 +20,14 @@ echo /usr/local/lib > /etc/ld.so.conf.d/usr_local_lib.conf
 ldconfig
 echo ' ##########开始安装cymysql###########'
 pip install cymysql
-
+yum -y install python-devel
+yum -y install libffi-devel
+yum -y install openssl-devel
 echo ' ##########开始安装魔改后端###########'
 cd /root
 git clone -b manyuser https://github.com/glzjin/shadowsocks.git
 cd shadowsocks
+pip install -r requirements.txt
 fi
 echo '#############################################
 #############开始进行参数配置################

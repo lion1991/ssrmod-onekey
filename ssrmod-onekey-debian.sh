@@ -25,7 +25,9 @@ echo -e \\n
 
 echo ' ##########开始安装cymysql###########'
 pip install cymysql
-
+apt-get install -y python-devel
+apt-get install -y libffi-devel
+apt-get install -y openssl-devel
 echo ' ##########开始安装魔改后端###########'
 cd /root
 git clone -b manyuser https://github.com/glzjin/shadowsocks.git
